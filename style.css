@@ -1,0 +1,600 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+  
+  body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background: #000000;
+    color: #1e1e1e;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /*body {
+    background-image: url('fonds/fonds3.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed; 
+    font-family: 'Prompt', sans-serif;
+    font-weight: 700;
+  }*/
+  
+  
+  /* Bande noire fixe */
+  #main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000000;
+    z-index: 1000;
+    overflow: hidden;
+    transition: height 0.6s ease;
+  }
+  
+  /* Logo centré au départ */
+  #logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: top center;
+    font-size: 4em;
+    color: white;
+    transition: transform 0.6s ease, top 0.6s ease;
+    z-index: 1001;
+  }
+
+  #logo-gif-initial {
+    display: block;
+    margin: 0 auto;        /* Centre horizontalement */
+    padding: 0;
+    height: 150px;         /* ou ta hauteur souhaitée */
+}
+  
+  /* En scrollant */
+  body.scrolled #main-header {
+    height: 120px;
+  }
+  
+  body.scrolled #logo {
+    top: -12px;
+    transform: translate(-50%, 0) scale(0.4);
+  }
+
+  /* BARRE DE NAVIGATION */
+.nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 3.7em;
+  }
+  
+  /* Parties gauche / droite */
+  .nav-left,
+  .nav-right {
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+  }
+  
+  /* Liens */
+  .nav-link {
+    font-family: 'Prompt', sans-serif; /* ou une autre police */
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  /* Icône Instagram */
+  .icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    vertical-align: middle; /* pour l'aligner avec le texte */
+    position: relative;
+    top: -2px;
+    filter: none;
+  }
+  
+  /* Quand scrolled, les liens apparaissent */
+  body.scrolled .nav-link {
+    opacity: 1;
+  }
+  
+  /* On cache la barre tant qu’on n’a pas scrollé */
+  body:not(.scrolled) .nav-left,
+  body:not(.scrolled) .nav-right {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  
+  /* On montre la barre quand on scroll */
+  body.scrolled .nav-left,
+  body.scrolled .nav-right {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 vidéos par ligne */
+    gap: 20px;                             /* espace entre vidéos */
+    max-width: 1400px;                     /* largeur max centrée */
+    margin: 0 auto;
+    padding: 40px;                         /* 👈 espace autour identique */
+    box-sizing: border-box;
+  }
+  
+
+  .video-item {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;  /* force le titre à suivre la largeur de l’image */
+  }
+
+
+.video-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 0; /* angles carrés */
+}
+
+.video-item img:hover {
+    transform: scale(1.02);
+}
+
+.video-title {
+  display: block;
+  width: 100%;
+  font-family: 'Prompt', sans-serif;
+  font-size: 16px;
+  margin-top: 8px;
+  color: white;
+  text-align: justify;     /* étale sur la largeur */
+  text-align-last: center; /* dernière ligne centrée */
+}
+
+.video-title::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+
+.video-grid a {
+    display: block;
+}
+
+.video-grid a,
+.video-grid a:link,
+.video-grid a:visited,
+.video-grid a:hover,
+.video-grid a:active {
+  text-decoration: none;   /* supprime le soulignement violet */
+  color: inherit;          /* garde le texte en blanc comme .video-title */
+}
+
+
+.video-grid img.thumbnail {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+  
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;       /* largeur max souhaitée */
+  margin: 0 auto 1em;     /* centré + marge dessous */
+  aspect-ratio: 16 / 9;   /* ratio 16:9 */
+  overflow: hidden;
+  border-radius: 0;       /* ou arrondi si tu veux */
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* 👈 remplit tout, supprime les bandes noires */
+}
+
+.insta-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+  
+
+  /* Mise en forme des sections */
+section {
+    max-width: 2000px;       /* 👈 largeur maximale du texte */
+    margin: 0 auto;         /* 👈 centré horizontalement */
+    padding: 0;       /* 👈 espace autour, avec marges latérales */
+  }
+  
+  /* Titres de section */
+  section h2 {
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.3em;
+  }
+  
+  /* Paragraphes */
+  section p {
+    font-size: 1.05em;
+    line-height: 1.8;
+    text-align: center;
+  }
+  
+  .text-section {
+    max-width: 700px;
+    margin: 100px auto;
+    padding: 0 20px;
+    font-family: 'Prompt', sans-serif;
+    color: white;
+    line-height: 1.6;
+  }
+  
+  h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    font-weight: 700;
+    border-bottom: none !important; /* supprime la bordure s'il y en a une */
+  box-shadow: none !important;    /* supprime une ombre si présente */
+  background: none !important;     /* au cas où */
+  padding-bottom: 0 !important;    /* enlève un padding qui fait effet d'espace */
+  margin-bottom: 0.5em;            /* ajuste l'espace sous le titre si besoin */
+  }
+  
+
+  .abouthome {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.2em;
+    line-height: 1.4;         /* 👈 lignes plus resserrées */
+    color: black;             /* 👈 texte en noir */
+    margin: 2em auto;
+    white-space: pre-line;
+    max-width: 700px;
+    background-color: rgba(255, 255, 255, 0.3);  /* 👈 si ton fond est sombre */
+    padding: 1em;
+    border-radius: 8px;
+  }
+
+  .fond-blanc {
+    background-color: rgba(255, 255, 255, 0.3); /* Fond blanc transparent */
+    padding: 2em;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 2em auto;
+    color: black;
+  }
+
+  .thumbnail {
+    aspect-ratio: 16/9;
+    display: block;
+    margin: 0 auto;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+.credits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+  gap: 1.5em; /* espace entre les cases */
+  margin-top: 2em;
+  text-align: center;
+  color: white;
+  font-family: 'Prompt', sans-serif;
+}
+
+.credit-item {
+  background: rgba(255, 255, 255, 0); /* petit fond discret, optionnel */
+  padding: 1em;
+  border-radius: 8px;
+}
+
+.credit-item strong {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.3em;
+}
+
+.credit-item p {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+
+
+
+
+/* --- Mise en page "livre" --- */
+.book-section {
+  /* page centrée avec marges généreuses */
+  max-width: 1400px;     /* même largeur que la bande vidéo */
+  padding: 40px;          /* même padding que .video-grid */
+  margin: 0 auto;
+  color: #fff;
+  /* léger grain papier sombre (optionnel) */
+  background:
+    radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,0.04), transparent 60%),
+    linear-gradient(transparent, transparent);
+}
+
+.book-title {
+  font: 600 1.95rem/1.2 'Literata', ui-serif, Georgia, 'Times New Roman', serif;
+  margin: 0 0 1.2rem 0;
+  letter-spacing: 0.2px;
+}
+
+/* Colonne de lecture */
+.book-body {
+  /* mesure typographique idéale */
+  max-width: 100%;
+  margin: 0 auto;
+  font: 400 1.1rem/1.7 'Literata', ui-serif, Georgia, 'Times New Roman', serif;
+
+  /* rendu typographique */
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;             /* active la césure */
+  overflow-wrap: anywhere;   /* évite les débordements */
+  hanging-punctuation: first allow-end; /* ponctuation pendante (si supportée) */
+
+  /* belles ligatures & chiffres */
+  font-variant-ligatures: common-ligatures;
+  font-kerning: normal;
+}
+
+/* retrait de première ligne… */
+.book-body p {
+  margin: 0;                 /* pas d'espace entre paragraphes, style roman */
+  text-indent: 0;        /* …comme dans un livre */
+}
+
+/* …sauf le premier paragraphe après un titre */
+.book-title + .book-body p:first-child {
+  text-indent: 0;
+}
+
+/* gras sobre dans le texte */
+.book-body strong {
+  font-weight: 600;
+}
+
+/* guillemets français automatiques avec <q> si tu en utilises */
+.book-body q {
+  quotes: "« " " »" "‹ " " ›";
+}
+.book-body q::before { content: open-quote; }
+.book-body q::after  { content: close-quote; }
+
+/* Lettrine (optionnel) : décommente pour une 1re lettre stylée
+.book-body p:first-child::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.9;
+  margin: 0.07em 0.15em 0 0;
+  font-weight: 600;
+}
+*/
+
+/* Responsive : un peu plus étroit et lisible sur mobile */
+@media (max-width: 640px) {
+  .book-section { padding: 3rem 1.25rem; }
+  .book-body { max-width: 40ch; line-height: 1.75; }
+  .book-title { font-size: 1.7rem; }
+}
+
+
+.book-body {
+  max-width: 100%;                   /* largeur de colonne idéale */
+  margin: 0 auto;
+  font: 400 1.2rem/1.7 'Prompt', ui-serif, Georgia, 'Times New Roman', serif;
+
+  text-align: justify;                /* texte justifié en bloc */
+  text-justify: inter-word;           /* espaces ajustés entre les mots */
+  hyphens: auto;                      /* césures automatiques */
+  overflow-wrap: break-word;          /* sécurité pour éviter les débordements */
+}
+
+.book-body p {
+  margin: 0 0 1rem 0;                 /* espace entre paragraphes */
+}
+
+/* Justification "bloc" sur tous les paragraphes de la zone */
+#about-me p {
+  text-align: justify !important;   /* aligne gauche + droite */
+  text-justify: inter-word;         /* répartit l'espace entre mots */
+  hyphens: auto;                    /* césure automatique (FR) */
+  overflow-wrap: break-word;        /* évite débordements */
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  text-align-last: justify;         /* justifie aussi la dernière ligne (supporté par Chrome/Edge/Firefox) */
+}
+
+/* Hack universel pour forcer la dernière ligne en bloc même si text-align-last est ignoré */
+#about-me p::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 0;
+}
+
+
+
+
+
+/* --- Galerie verticale (9:16) sur About Me --- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 colonnes sur grand écran */
+  gap: 20px;
+  max-width: 1400px;                      /* même largeur que les vidéos */
+  margin: 0 auto;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.gallery-item {
+  width: 100%;
+  aspect-ratio: 9 / 16;                   /* format vertical */
+  object-fit: cover;                      /* recadre proprement */
+  display: block;
+  border-radius: 0;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);                 /* léger zoom au survol */
+}
+
+/* Responsive : 2 colonnes sur tablette, 1 sur mobile */
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* --- Footer réaligné à gauche, © centré --- */
+.simple-footer {
+  background: #ffffff; /* ✅ fond blanc */
+  font-family: 'Prompt', sans-serif;
+  color: #000000; /* texte noir pour contraste */
+  padding: 60px 0 50px;
+  border-top: 2px solid #000000; /* fine bordure noire si tu veux garder un cadre */
+  margin-top: 80px; /* ✅ espace avant la zone blanche */
+}
+
+.footer-logo {
+  opacity: 1; /* plus visible sur fond clair */
+}
+
+.footer-mail,
+.footer-tel,
+.footer-insta,
+.footer-youtube {
+  color: #000000; /* texte noir sur fond blanc */
+}
+
+.footer-mail:hover,
+.footer-tel:hover,
+.footer-insta:hover,
+.footer-youtube:hover {
+  color: #555555; /* gris foncé au survol */
+}
+
+.footer-legal {
+  color: #000000;
+}
+
+/* Conteneur gauche */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* tout à gauche */
+  gap: 12px;
+  margin-left: 40px;         /* marge à gauche pour respirer */
+}
+
+/* Logo */
+.footer-logo {
+  height: 35px;
+  opacity: 0.85;
+}
+
+/* Liens */
+.footer-insta,
+.footer-youtube,
+.footer-mail,
+.footer-tel {
+  color: #000000;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.footer-mail:hover,
+.footer-tel:hover {
+  color: #ffffff;
+}
+
+/* Réseaux sociaux alignés à gauche */
+.footer-social {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.footer-social img,
+.footer-social svg {
+  width: 24px;
+  height: 24px;
+  opacity: 0.8;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.footer-social a:hover img,
+.footer-social a:hover svg {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Ligne du © centrée indépendamment */
+.footer-legal {
+  text-align: center;
+  color: #000000;
+  font-size: 0.85rem;
+  margin-top: 30px;
+  letter-spacing: 0.5px;
+}
+
+/* Effet : première et dernière ligne normales, lignes internes espacées aléatoirement */
+.weird-justify p {
+  text-align: justify;
+  text-justify: inter-word;
+  position: relative;
+}
+
+/* Pour éviter que la première et dernière ligne soient touchées */
+.weird-justify p span.word {
+  display: inline-block;
+}
+
+/* Optionnel : petite transition douce */
+.weird-justify p span.word {
+  transition: margin 0.3s ease;
+}
+
